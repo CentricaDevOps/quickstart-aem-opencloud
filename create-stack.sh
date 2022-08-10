@@ -16,7 +16,7 @@ set -e
 
 if [ ! $stackid = "Nope" ]; then
     stkstatus=$(aws --profile sreami --region eu-west-2 cloudformation describe-stacks --stack-name $stackid |jq -r '.Stacks[].StackStatus')
-    if [ "$stkstatus" !=  "DELETE_IN_PROGRESS" ]; then
+    if [ ! "$stkstatus" =  "DELETE_IN_PROGRESS" ]; then
         aws --profile sreami --region eu-west-2 cloudformation delete-stack --stack-name $stackid
     fi
     cn=1
