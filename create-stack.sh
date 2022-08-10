@@ -38,6 +38,7 @@ ParameterKey="S3InstallBucketName",ParameterValue="cca-sre-poc-aem-install" \
 ParameterKey="S3InstallKeyPrefix",ParameterValue="quickstart-aem-opencloud/" \
 ParameterKey="VPCCIDR",ParameterValue="10.2.16.0/21" \
 ParameterKey="KeyPairName",ParameterValue="cca-test" \
+ParameterKey="JavaJDKVersion",ParameterValue="8u341" \
 --tags \
 Key=CostCode,Value=IS9210S101 \
 Key=ServiceOwner,Value=SRE \
