@@ -31,8 +31,10 @@ if [ ! $stackid = "Nope" ]; then
         fi
     done
     echo "stack deleted"
-    echo "deleting secret"
+    echo "deleting secret aem-opencloud-aemssl-private-key"
     aws --profile sreami secretsmanager delete-secret --secret-id aem-opencloud-aemssl-private-key --force-delete-without-recovery --region eu-west-2
+    echo "deleting secret aem-opencloud-aem-keystore-password"
+    aws --profile sreami secretsmanager delete-secret --secret-id aem-opencloud-aem-keystore-password --force-delete-without-recovery --region eu-west-2
 fi
 
 # now create the stack
