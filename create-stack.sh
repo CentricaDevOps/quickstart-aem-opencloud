@@ -8,7 +8,7 @@ cloudformation \
 create-stack \
 --stack-name cca-sre-aem-poc-cf \
 --template-url "https://cca-sre-poc-aem-install.s3.eu-west-2.amazonaws.com/quickstart-aem-opencloud/templates/workload-main.template.yaml" \
---on-failure DO_NOTHING \
+--disable-rollback \
 --parameters \
 ParameterKey="AOCStackPrefix",ParameterValue="aem-opencloud" \
 ParameterKey="AemDispatcherVersion",ParameterValue="4.3.5" \

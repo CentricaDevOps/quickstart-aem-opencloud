@@ -2,6 +2,8 @@
 # --template-body file://templates/workload-main.template.yaml \
 # --on-failure ROLLBACK \
 # --on-failure DELETE \
+# --on-failure DO_NOTHING \
+# --disable-rollback \
 
 ParameterKey="AOCStackPrefix",ParameterValue="aem-opencloud"
 AlarmNotificationEmail	-	-
@@ -13,6 +15,6 @@ ExternalRoute53ZoneID	-	-
 InternalCertificateARN	-	-
 InternalRoute53ZoneID	-	-
 InternalRoute53ZoneName	-	-
-JavaJDKVersion	8u341	-
+ParameterKey="JavaJDKVersion",ParameterValue="8u341"
 KeyPairName	cca-test	-
 PublishBackupSnapshotID	-	-
