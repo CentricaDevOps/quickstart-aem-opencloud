@@ -8,34 +8,39 @@ cd "$(dirname ${BASH_SOURCE[0]})"
 # sync up the s3 bucket
 aws --profile sreami s3 sync ./ s3://cca-sre-poc-aem-install/quickstart-aem-opencloud/
 
-set +e
-# ensure current stack is deleted
-stackid=$(aws --profile sreami --region eu-west-2 cloudformation describe-stacks --stack-name cca-sre-aem-poc-cf |jq -r '.Stacks[].StackId' || echo Nope)
-set -e
+# set +e
+# # ensure current stack is deleted
+# stackid=$(aws --profile sreami --region eu-west-2 cloudformation describe-stacks --stack-name cca-sre-aem-poc-cf |jq -r '.Stacks[].StackId' || echo Nope)
+# set -e
+#
+#
+# if [ ! $stackid = "Nope" ]; then
+#     stkstatus=$(aws --profile sreami --region eu-west-2 cloudformation describe-stacks --stack-name $stackid |jq -r '.Stacks[].StackStatus')
+#     if [ ! "$stkstatus" =  "DELETE_IN_PROGRESS" ]; then
+#         aws --profile sreami --region eu-west-2 cloudformation delete-stack --stack-name $stackid
+#     fi
+#     cn=1
+#     while [ $stkstatus =  "DELETE_IN_PROGRESS" ]; do
+#         waited=$(( cn * 5 ))
+#         echo "Waiting for stack to delete: $waited minutes"
+#         sleep 300
+#         cn=$(( cn + 1 ))
+#         if [ $cn -gt 10 ];then
+#             echo "Not waiting any longer, $waited minutes: go and have a rummage yourself"
+#             exit 1
+#         fi
+#     done
+#     echo "stack deleted"
+#     echo "deleting secret aem-opencloud-aemssl-private-key"
+#     aws --profile sreami secretsmanager delete-secret --secret-id aem-opencloud-aemssl-private-key --force-delete-without-recovery --region eu-west-2
+#     echo "deleting secret aem-opencloud-aem-keystore-password"
+#     aws --profile sreami secretsmanager delete-secret --secret-id aem-opencloud-aem-keystore-password --force-delete-without-recovery --region eu-west-2
+# fi
 
-
-if [ ! $stackid = "Nope" ]; then
-    stkstatus=$(aws --profile sreami --region eu-west-2 cloudformation describe-stacks --stack-name $stackid |jq -r '.Stacks[].StackStatus')
-    if [ ! "$stkstatus" =  "DELETE_IN_PROGRESS" ]; then
-        aws --profile sreami --region eu-west-2 cloudformation delete-stack --stack-name $stackid
-    fi
-    cn=1
-    while [ $stkstatus =  "DELETE_IN_PROGRESS" ]; do
-        waited=$(( cn * 5 ))
-        echo "Waiting for stack to delete: $waited minutes"
-        sleep 300
-        cn=$(( cn + 1 ))
-        if [ $cn -gt 10 ];then
-            echo "Not waiting any longer, $waited minutes: go and have a rummage yourself"
-            exit 1
-        fi
-    done
-    echo "stack deleted"
-    echo "deleting secret aem-opencloud-aemssl-private-key"
-    aws --profile sreami secretsmanager delete-secret --secret-id aem-opencloud-aemssl-private-key --force-delete-without-recovery --region eu-west-2
-    echo "deleting secret aem-opencloud-aem-keystore-password"
-    aws --profile sreami secretsmanager delete-secret --secret-id aem-opencloud-aem-keystore-password --force-delete-without-recovery --region eu-west-2
-fi
+echo "deleting secret aem-opencloud-aemssl-private-key"
+aws --profile sreami secretsmanager delete-secret --secret-id aem-opencloud-aemssl-private-key --force-delete-without-recovery --region eu-west-2
+echo "deleting secret aem-opencloud-aem-keystore-password"
+aws --profile sreami secretsmanager delete-secret --secret-id aem-opencloud-aem-keystore-password --force-delete-without-recovery --region eu-west-2
 
 # now create the stack
 echo "Creating Stack"
