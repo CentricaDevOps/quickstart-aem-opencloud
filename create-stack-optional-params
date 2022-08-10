@@ -1,0 +1,16 @@
+# --template-url "https://cca-sre-poc-aem-install.s3.eu-west-2.amazonaws.com/quickstart-aem-opencloud/templates/workload-main.template.yaml" \
+# --template-body file://templates/workload-main.template.yaml \
+
+ParameterKey="AOCStackPrefix",ParameterValue="aem-opencloud"
+AlarmNotificationEmail	-	-
+AlarmNotificationHttpsEndpoint	-	-
+AuthorBackupSnapshotID	-	-
+ExternalCertificateARN	-	-
+ExternalFQDN	-	-
+ExternalRoute53ZoneID	-	-
+InternalCertificateARN	-	-
+InternalRoute53ZoneID	-	-
+InternalRoute53ZoneName	-	-
+JavaJDKVersion	8u341	-
+KeyPairName	cca-test	-
+PublishBackupSnapshotID	-	-
