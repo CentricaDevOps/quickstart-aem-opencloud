@@ -8,9 +8,13 @@ cd "$(dirname ${BASH_SOURCE[0]})"
 # sync up the s3 bucket
 aws --profile sreami s3 sync ./ s3://cca-sre-poc-aem-install/quickstart-aem-opencloud/
 
+set +e
 # ensure current stack is deleted
-stackid=$(aws --profile sreami --region eu-west-2 cloudformation describe-stacks --stack-name cca-sre-aem-poc-cf |jq -r '.Stacks[].StackId')
-if [ -n $stackid ]; then
+stackid=$(aws --profile sreami --region eu-west-2 cloudformation describe-stacks --stack-name cca-sre-aem-poc-cf |jq -r '.Stacks[].StackId' || echo Nope)
+set -e
+
+
+if [ ! $stackid = "Nope" ]; then
     stkstatus=$(aws --profile sreami --region eu-west-2 cloudformation describe-stacks --stack-name $stackid |jq -r '.Stacks[].StackStatus')
     if [ "$stkstatus" !=  "DELETE_IN_PROGRESS" ]; then
         aws --profile sreami --region eu-west-2 cloudformation delete-stack --stack-name $stackid
