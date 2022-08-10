@@ -1,5 +1,7 @@
 # --template-url "https://cca-sre-poc-aem-install.s3.eu-west-2.amazonaws.com/quickstart-aem-opencloud/templates/workload-main.template.yaml" \
 # --template-body file://templates/workload-main.template.yaml \
+# --on-failure ROLLBACK \
+# --on-failure DELETE \
 
 ParameterKey="AOCStackPrefix",ParameterValue="aem-opencloud"
 AlarmNotificationEmail	-	-
