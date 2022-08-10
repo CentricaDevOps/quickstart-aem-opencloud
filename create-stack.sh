@@ -11,7 +11,7 @@ create-stack \
 --on-failure DO_NOTHING \
 --parameters \
 ParameterKey="AOCStackPrefix",ParameterValue="aem-opencloud" \
-ParameterKey="AemDispatcherVersion",ParameterValue="4.3.3" \
+ParameterKey="AemDispatcherVersion",ParameterValue="4.3.5" \
 ParameterKey="AemVersion",ParameterValue="65" \
 ParameterKey="AuthorDispatcherInstanceType",ParameterValue="t3.small" \
 ParameterKey="AuthorInstanceType",ParameterValue="m5.2xlarge" \
