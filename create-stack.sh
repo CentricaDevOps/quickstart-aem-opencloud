@@ -2,6 +2,13 @@
 
 set -e
 
+# ensure we are in the quick start directory
+cd "$(dirname ${BASH_SOURCE[0]})"
+
+# sync up the s3 bucket
+aws --profile sreami s3 sync ./ s3://cca-sre-poc-aem-install/quickstart-aem-opencloud/
+
+# now create the stack
 aws --profile sreami \
     --region eu-west-2 \
 cloudformation \
