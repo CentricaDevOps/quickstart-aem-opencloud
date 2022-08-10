@@ -72,6 +72,21 @@ if [ ${COMPONENT} = "dispatcher" ]; then
   cp $TMP_DIR/dispatcher_spec.rb $TMP_DIR/packer-aem/test/inspec/dispatcher_spec.rb
 fi
 
+#
+# fix for the dispatcher apache module
+# it doesn't recognise the installed openssl.so
+# this isn't a real fix, adobe need to recompile their
+# module (or release the source code so proper sysadmins
+# can do it for them)
+#
+if [ ${COMPONENT} = "dispatcher" ]; then
+    libdir=/usr/lib64
+    ln -s ${libdir}/libcrypto.so.1.0.2k ${libdir}/libcrypto.so.1.0.0
+    ln -s ${libdir}/libssl.so.1.0.2k ${libdir}/libssl.so.1.0.0
+    ln -s ${libdir}/libcrypto.so.1.0.2k ${libdir}/libcrypto.so
+    ln -s ${libdir}/libssl.so.1.0.2k ${libdir}/libssl.so
+fi
+
 set +o errexit
 
 echo "Finished preparing AEM OpenCloud installation"
