@@ -7,3 +7,4 @@ library/
 docs/index.html
 build/
 venv/
+create-stack*
